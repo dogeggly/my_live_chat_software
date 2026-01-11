@@ -1,5 +1,6 @@
 server:
   port: 8080
+
 spring:
   application:
     name: chat
@@ -20,10 +21,20 @@ spring:
           min-idle: 1
           time-between-eviction-runs: 10s
   jackson:
-    default-property-inclusion: non_null # JSON处理时忽略非空字段
+    default-property-inclusion: non_null # 返回 JSON 时忽略非空字段
+
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.dely.chat.entity # 别名扫描包
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      id-type: auto # 对应数据库的序列自增
+
 logging:
   level:
-    com.dely.chat: debug
+    com.dely.chat:
+      mapper: debug
+      service: info
+      controller: info
