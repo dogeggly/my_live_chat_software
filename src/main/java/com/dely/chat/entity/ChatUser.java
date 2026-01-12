@@ -2,14 +2,17 @@ package com.dely.chat.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.dely.chat.utils.PostgresInetTypeHandler;
+import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 
 /**
  * 用户实体
  */
 @Data
+@Builder
 @TableName(value = "public.chat_user", autoResultMap = true)
 public class ChatUser {
 
@@ -30,7 +33,7 @@ public class ChatUser {
 
     private Boolean isOnline;
 
-    private OffsetDateTime lastLoginAt;
+    private LocalDateTime lastLoginAt;
 
     @TableField(value = "last_login_ip", typeHandler = PostgresInetTypeHandler.class)
     private String lastLoginIp;
