@@ -4,22 +4,23 @@ CREATE SEQUENCE chat_group_id_seq START WITH 10000;
 
 CREATE TABLE public.chat_group
 (
-    group_id    bigint PRIMARY KEY default nextval('chat_group_id_seq'),
+    group_id    bigint PRIMARY KEY       default nextval('chat_group_id_seq'),
     group_name  varchar(64) NOT NULL,
-    owner_id    bigint      NOT NULL,             -- 群主ID
-    description text,                             -- 群简介
-    type        group_type           DEFAULT 'public',
+    owner_id    bigint      NOT NULL,                 -- 群主ID
+    description text,                                 -- 群简介
+    type        group_type               DEFAULT 'public',
 
     -- 群配置
-    members     int                  DEFAULT 1,
-    max_members int                  DEFAULT 100, -- 最大人数限制
+    members     int                      DEFAULT 1,
+    max_members int                      DEFAULT 100, -- 最大人数限制
+    is_deleted  BOOLEAN                  DEFAULT FALSE,
 
     -- 审计信息
-    created_at  TIMESTAMP WITH TIME ZONE DEFAULT now(),
-    updated_at  TIMESTAMP WITH TIME ZONE DEFAULT now()
+    created_time  TIMESTAMP WITH TIME ZONE DEFAULT now(),
+    updated_time  TIMESTAMP WITH TIME ZONE DEFAULT now()
 );
 
-CREATE INDEX idx_group_owner ON chat_group (owner_id);
+CREATE INDEX idx_group_owner ON chat_group (owner_id) where is_deleted = false;
 
 CREATE TRIGGER set_timestamp
     BEFORE UPDATE

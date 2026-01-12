@@ -1,15 +1,15 @@
 CREATE TABLE public.friend
 (
-    id         bigserial PRIMARY KEY,
-    user_id    bigint      NOT NULL, -- 所属用户 ID
-    friend_id  bigint      NOT NULL, -- 好友用户 ID
+    id           bigserial PRIMARY KEY,
+    user_id      bigint NOT NULL, -- 所属用户 ID
+    friend_id    bigint NOT NULL, -- 好友用户 ID
 
     -- 业务属性
-    remark     varchar(64),          -- 我给好友起的备注
+    remark       varchar(64),     -- 我给好友起的备注
 
     -- 审计信息
-    created_at timestamptz NOT NULL DEFAULT now(),
-    updated_at timestamptz NOT NULL DEFAULT now(),
+    created_time timestamp with time zone DEFAULT now(),
+    updated_time timestamp with time zone DEFAULT now(),
 
     -- 约束：同一个用户不能多次添加同一个好友
     UNIQUE (user_id, friend_id)

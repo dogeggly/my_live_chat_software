@@ -19,11 +19,11 @@ CREATE TABLE IF NOT EXISTS public.chat_user
     -- 4. 状态管理
     is_online     BOOLEAN,                     -- 在线状态
 
-    -- 5. 时间审计 (使用带时区的时间戳)
+    -- 5. 时间审计
     last_login_at TIMESTAMP,
     last_login_ip inet,
-    created_time  TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    updated_time  TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    created_time  TIMESTAMP WITH TIME ZONE DEFAULT now(),
+    updated_time  TIMESTAMP WITH TIME ZONE DEFAULT now()
 );
 
 -- 6. 创建索引优化查询

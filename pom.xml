@@ -81,12 +81,6 @@
             <version>5.8.40</version>
         </dependency>
 
-        <!--apo-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
-
         <!--jjwt-->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>

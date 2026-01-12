@@ -17,7 +17,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         log.info("开始注册自定义拦截器...");
         registry.addInterceptor(tokenInterceptor)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/register")
-                .excludePathPatterns("/login");
+                .excludePathPatterns("/user/register")
+                .excludePathPatterns("/user/login");
     }
 }

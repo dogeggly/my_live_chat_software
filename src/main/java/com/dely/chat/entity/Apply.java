@@ -10,23 +10,27 @@ import lombok.Data;
 
 /**
  * <p>
- * 好友实体
+ *
  * </p>
  *
  * @author dely
  * @since 2026-01-12
  */
 @Data
-@TableName("friend")
-public class Friend implements Serializable {
+@TableName(value = "apply", autoResultMap = true)
+public class Apply implements Serializable {
 
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    private Long userId;
+    private Long senderId;
 
-    private Long friendId;
+    private Boolean targetType;
 
-    private String remark;
+    private Long targetId;
+
+    private String reason;
+
+    private ApplyStatus status;
 
 }

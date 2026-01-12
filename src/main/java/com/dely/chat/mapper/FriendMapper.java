@@ -2,6 +2,9 @@ package com.dely.chat.mapper;
 
 import com.dely.chat.entity.Friend;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface FriendMapper extends BaseMapper<Friend> {
 
+    @Select("select friend_id from friend where user_id = #{userId}")
+    List<Long> selectFriendsByUserId(Long userId);
 }

@@ -28,4 +28,6 @@ public class ChatGroup implements Serializable {
 
     private Integer maxAmount;
 
+    private Boolean isDeleted;
+
 }

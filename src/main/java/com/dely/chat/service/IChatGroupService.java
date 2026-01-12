@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IChatGroupService extends IService<ChatGroup> {
 
+    void create(ChatGroup chatGroup);
 }
