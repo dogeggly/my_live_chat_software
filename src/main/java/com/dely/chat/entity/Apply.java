@@ -25,9 +25,11 @@ public class Apply implements Serializable {
 
     private Long senderId;
 
-    private Boolean targetType;
+    private Boolean isFriend;
 
     private Long targetId;
+
+    private Long groupId;
 
     private String reason;
 

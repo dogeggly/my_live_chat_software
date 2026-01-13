@@ -11,11 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Map;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author dely
@@ -25,7 +26,16 @@ import java.util.Map;
 public class ChatGroupServiceImpl extends ServiceImpl<ChatGroupMapper, ChatGroup> implements IChatGroupService {
 
     @Autowired
+    private ChatGroupMapper chatGroupMapper;
+    @Autowired
     private IGroupMemberService groupMemberService;
+
+    @Override
+    public List<Long> listOwn() {
+        Map<String, Object> userMap = UserHolder.getCurrent();
+        Long userId = (Long) userMap.get("userId");
+        return chatGroupMapper.listOwn(userId);
+    }
 
     @Override
     @Transactional

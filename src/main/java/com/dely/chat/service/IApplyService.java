@@ -1,5 +1,6 @@
 package com.dely.chat.service;
 
+import com.dely.chat.dto.Result;
 import com.dely.chat.entity.Apply;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IApplyService extends IService<Apply> {
 
+    Result handle(Apply apply);
 }

@@ -89,24 +89,37 @@ public class ChatUserController {
         return Result.success(jwt);
     }
 
+    /**
+     * 查自己的用户信息，登录后直接查出来先缓存
+     */
     @GetMapping("/profile")
     public Result<ChatUser> profile() {
+        // TODO 缓存redis的问题
         Map<String, Object> userMap = UserHolder.getCurrent();
         ChatUser user = chatUserService.getById((Long) userMap.get("userId"));
         return Result.success(user);
     }
 
+    /**
+     * 修改自己的用户信息
+     */
     @PutMapping("/update")
     public Result update(@RequestBody ChatUser chatUser) {
         chatUserService.updateById(chatUser);
         return Result.success();
     }
 
+    /**
+     * 根据id搜索用户
+     */
     @GetMapping("/find/{id}")
     public Result<ChatUser> findById(@PathVariable Long id) {
         return Result.success(chatUserService.getById(id));
     }
 
+    /**
+     * 根据昵称搜索用户
+     */
     @GetMapping("/find/nickname")
     public Result<List<ChatUser>> findByNickname(String nickname) {
         // TODO 模糊查询，索引问题

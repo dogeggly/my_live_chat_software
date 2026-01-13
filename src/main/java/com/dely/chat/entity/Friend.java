@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 
 import java.io.Serializable;
 
+import lombok.Builder;
 import lombok.Data;
 
 /**
@@ -17,6 +18,7 @@ import lombok.Data;
  * @since 2026-01-12
  */
 @Data
+@Builder
 @TableName("friend")
 public class Friend implements Serializable {
 
