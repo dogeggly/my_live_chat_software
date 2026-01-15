@@ -31,7 +31,7 @@ public class ApplyController {
      * 发送加好友或加群申请
      */
     @PostMapping("/send")
-    public Result create(@RequestBody Apply apply) {
+    public Result create(@RequestBody Apply apply) {   
         // TODO 还没考虑频道的加入
         Map<String, Object> userMap = UserHolder.getCurrent();
         Long userId = (Long) userMap.get("userId");

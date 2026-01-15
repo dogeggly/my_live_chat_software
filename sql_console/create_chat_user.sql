@@ -27,7 +27,9 @@ CREATE TABLE IF NOT EXISTS public.chat_user
 );
 
 -- 6. 创建索引优化查询
-CREATE INDEX idx_chat_user_username ON public.chat_user (nickname);
+-- gin索引的三元组模型扩展
+CREATE EXTENSION IF NOT EXISTS pg_trgm;
+CREATE INDEX idx_chat_user_username ON public.chat_user USING gin (nickname gin_trgm_ops);
 
 -- 7. 为 chat_user 表绑定触发器
 -- 注意：created_time 靠 DEFAULT，updated_time 靠这个 Trigger

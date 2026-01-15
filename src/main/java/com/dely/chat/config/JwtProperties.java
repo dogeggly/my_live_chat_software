@@ -7,6 +7,9 @@ import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
+/**
+ * 没有设置过期时间方便测试
+ */
 public class JwtProperties {
 
     private static final String JWT_SECRET_KEY = "the_secret_key_of_dely_live_chat_software";

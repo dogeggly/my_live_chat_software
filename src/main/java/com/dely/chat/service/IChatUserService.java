@@ -1,7 +1,10 @@
 package com.dely.chat.service;
 
+import com.dely.chat.dto.Result;
 import com.dely.chat.entity.ChatUser;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IChatUserService extends IService<ChatUser> {
 
+    Result<List<ChatUser>> findByNickname(String nickname);
 }
