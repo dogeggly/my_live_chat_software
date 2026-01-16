@@ -15,8 +15,6 @@ CREATE TABLE public.group_member
 
 -- 索引：极大提升“我的群列表”查询速度
 CREATE INDEX idx_member_user_id ON group_member (user_id);
--- 索引：查询某个群的成员列表
-CREATE INDEX idx_member_group_id ON group_member (group_id);
 
 CREATE TRIGGER set_timestamp
     BEFORE UPDATE

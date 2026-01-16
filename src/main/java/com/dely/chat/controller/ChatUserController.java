@@ -46,6 +46,9 @@ public class ChatUserController {
     @Autowired
     private IChatUserService chatUserService;
 
+    /**
+     * 注册
+     */
     @PostMapping("/register")
     public Result register(@RequestBody UserAddDTO userAddDTO) {
         String nickname = userAddDTO.getNickname();
@@ -75,6 +78,9 @@ public class ChatUserController {
         return Result.success();
     }
 
+    /**
+     * 登录
+     */
     @PostMapping("/login")
     public Result<String> login(@RequestBody UserAddDTO userAddDTO, HttpServletRequest request) {
         String phone = userAddDTO.getPhone();
@@ -123,7 +129,7 @@ public class ChatUserController {
     /**
      * 修改自己的用户信息
      */
-    @PutMapping("/update")
+    @PutMapping
     public Result update(@RequestBody UserUpdateDTO userUpdateDTO) {
         ChatUser chatUser = BeanUtil.copyProperties(userUpdateDTO, ChatUser.class);
         Long userId = (Long) UserHolder.getCurrent().get("userId");
@@ -135,7 +141,7 @@ public class ChatUserController {
     /**
      * 根据id搜索用户
      */
-    @GetMapping("/find/{id}")
+    @GetMapping("/{id}")
     public Result<ChatUser> findById(@PathVariable Long id) {
         return Result.success(chatUserService.getById(id));
     }
@@ -143,11 +149,31 @@ public class ChatUserController {
     /**
      * 根据昵称搜索用户
      */
-    @GetMapping("/find")
+    @GetMapping
     public Result<List<ChatUser>> findByNickname(String nickname) {
-        // TODO redis问题
         // 没有加入分页逻辑，可以让前端传上一个相似度，然后查10条大于这个相似度的数据
         return chatUserService.findByNickname(nickname);
+    }
+
+    /**
+     * 根据昵称精确搜索用户
+     */
+    @GetMapping("/exact")
+    public Result<List<ChatUser>> findByNicknameExact(String nickname) {
+        List<ChatUser> list = chatUserService.lambdaQuery().eq(ChatUser::getNickname, nickname).list();
+        return Result.success(list);
+    }
+
+    /**
+     * 登出
+     */
+    @GetMapping("/logout")
+    public Result logout() {
+        Long userId = (Long) UserHolder.getCurrent().get("userId");
+        chatUserService.lambdaUpdate()
+                .eq(ChatUser::getUserId, userId)
+                .set(ChatUser::getIsOnline, false).update();
+        return Result.success();
     }
 
 }

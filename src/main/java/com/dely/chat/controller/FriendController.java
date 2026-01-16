@@ -20,29 +20,35 @@ public class FriendController {
      * 查用户所有已添加的好友
      */
     @GetMapping("/list")
-    public Result<List<Long>> list() {
-        List<Long> list = friendService.selectFriendsByUserId();
+    public Result<List<Friend>> list() {
+        Long userId = (Long) UserHolder.getCurrent().get("userId");
+        List<Friend> list = friendService.lambdaQuery().eq(Friend::getUserId, userId).list();
         return Result.success(list);
     }
 
     /**
-     * 修改好友备注
+     * 修改好友备注，加上userId的判断逻辑以防绕过前端修改数据
      */
-    @PutMapping("/update")
+    @PutMapping
     public Result update(@RequestBody Friend friend) {
-        friendService.updateById(friend);
+        Long userId = (Long) UserHolder.getCurrent().get("userId");
+        friendService.lambdaUpdate()
+                .eq(Friend::getId, friend.getId())
+                .eq(Friend::getUserId, userId)
+                .set(Friend::getRemark, friend.getRemark())
+                .update();
         return Result.success();
     }
 
     /**
      * 删除好友
      */
-    @DeleteMapping("/delete/{friendId}")
-    public Result delete(@PathVariable Long friendId) {
+    @DeleteMapping("/{id}")
+    public Result delete(@PathVariable Long id) {
         Long userId = (Long) UserHolder.getCurrent().get("userId");
         friendService.lambdaUpdate()
+                .eq(Friend::getId, id)
                 .eq(Friend::getUserId, userId)
-                .eq(Friend::getFriendId, friendId)
                 .remove();
         return Result.success();
     }

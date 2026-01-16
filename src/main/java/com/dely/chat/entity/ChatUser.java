@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
 
 /**
  * 用户实体
@@ -38,9 +37,4 @@ public class ChatUser {
     @TableField(value = "last_login_ip", typeHandler = PostgresInetTypeHandler.class)
     private String lastLoginIp;
 
-    @TableField(value = "created_time", insertStrategy = FieldStrategy.NEVER, updateStrategy = FieldStrategy.NEVER)
-    private OffsetDateTime createdTime;
-
-    @TableField(value = "updated_time", insertStrategy = FieldStrategy.NEVER, updateStrategy = FieldStrategy.NEVER)
-    private OffsetDateTime updatedTime;
 }
